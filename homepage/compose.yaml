@@ -1,0 +1,22 @@
+networks:
+  homelab:
+    external: true
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - 3000:3000
+    networks:
+      - homelab
+    volumes:
+      - ./config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`dashboard.${LOCAL_DOMAIN}`) || Host(`dashboard.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.homepage.entrypoints=web"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
+      # - "traefik.http.routers.homepage.middlewares=homepage-stripprefix"
+      # - "traefik.http.middlewares.homepage-stripprefix.stripprefix.prefixes=/homepage"

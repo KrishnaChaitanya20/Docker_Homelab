@@ -1,0 +1,6 @@
+*/.env
+homepage/config/logs
+jellyfin/config
+jellyfin/cache
+jellyfin/movies
+pihole/conf

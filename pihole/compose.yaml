@@ -1,0 +1,31 @@
+networks:
+  homelab:
+    external: true
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8081:80/tcp"
+    environment:
+      TZ: 'Asia/Kolkata'
+      WEBPASSWORD: 'pass'
+      PIHOLE_INTERFACE: "eth0"
+      WEB_SERVER_LISTEN: "0.0.0.0"
+    networks:
+      - homelab
+    volumes:
+      - './conf/etc-pihole:/etc/pihole'
+      - './conf/etc-dnsmasq.d:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.${LOCAL_DOMAIN}`) || Host(`pihole.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.pihole.entrypoints=web"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"

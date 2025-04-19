@@ -1,0 +1,13 @@
+# docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token <token>
+networks:
+  homelab:
+    external: true
+    
+services:
+  cloudflare:
+    image: cloudflare/cloudflared:latest
+    env_file: .env
+    container_name: cloudflared
+    command: "tunnel --no-autoupdate run --token ${CF_TOKEN}"
+    networks:
+      - homelab

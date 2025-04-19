@@ -1,0 +1,63 @@
+---
+networks:
+  homelab:
+    external: true
+
+volumes:
+  kestra-data:
+    driver: local
+
+services:
+  kestra:
+    container_name: kestra
+    image: kestra/kestra:latest
+    user: "root"
+    command: server standalone
+    networks:
+      - homelab
+    volumes:
+      - kestra-data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      KESTRA_CONFIGURATION: |
+        datasources:
+          h2:
+            url: jdbc:h2:file:/app/storage/h2db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+            username: sa
+            password: ""
+            driverClassName: org.h2.Driver
+
+        kestra:
+          tutorialFlows:
+            enabled: false
+          server:
+            basicAuth:
+              enabled: false
+              username: "admin@kestra.io"
+              password: kestra
+          storage:
+            type: local
+            local:
+              basePath: "/app/storage"
+          queue:
+            type: h2
+          repository:
+            type: h2
+
+          tasks:
+            tmpDir:
+              path: /tmp/kestra-wd/tmp
+          url: http://0.0.0.0:8080/
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kestra.rule=Host(`kestra.${LOCAL_DOMAIN}`) || Host(`kestra.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.kestra.entrypoints=web"
+      - "traefik.http.services.kestra.loadbalancer.server.port=8080"
+
+
+
+      # - "traefik.http.routers.kestra-executor.rule=Host(`kestra.localhost`) && PathPrefix(`/api/v1/executions`)"
+      # - "traefik.http.routers.kestra-executor.entrypoints=web"
+      # - "traefik.http.services.kestra-executor.loadbalancer.server.port=8081"
+      

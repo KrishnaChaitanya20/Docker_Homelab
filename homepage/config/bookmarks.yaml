@@ -1,0 +1,16 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          href: https://github.com/KrishnaChaitanya20
+
+    - Linkedin:
+        - abbr: In
+          href: https://www.linkedin.com/in/krishna-chaitanya-devunoori
+
+    - Portfolio:
+        - abbr: Pfl
+          href: https://dkc26.space
