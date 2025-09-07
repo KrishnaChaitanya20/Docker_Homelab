@@ -18,6 +18,10 @@ The following services are part of the homelab setup:
   - Folder: `jellyfin`
   - Purpose: Organizes and streams movies, TV shows, and other media.
 
+- **IT-Tools**: A collection of useful online tools for developers and IT professionals.
+  - Folder: `ittools`
+  - Purpose: Provides a web interface with various utilities such as encoders, decoders, format converters, and more.
+
 - **Kestra**: A workflow orchestration tool for managing data pipelines.
   - Folder: `kestra`
   - Purpose: Enables experimentation with workflows and data orchestration.
@@ -95,7 +99,7 @@ Each service is accessible via:
 
 Refer to the `Readme.md` file in each service folder for specific details.
 
-## Notes
+> ### Notes
 
 - This setup is for personal use and experimentation. It may not follow production-grade best practices.
 - Contributions and suggestions are welcome to improve the setup.
