@@ -8,6 +8,8 @@ services:
     container_name: homepage
     ports:
       - 3000:3000
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=*
     networks:
       - homelab
     volumes:
@@ -15,7 +17,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.homepage.rule=Host(`dashboard.${LOCAL_DOMAIN}`) || Host(`dashboard.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.homepage.rule=Host(`dash.${LOCAL_DOMAIN}`) || Host(`dash.${PUBLIC_DOMAIN}`)"
       - "traefik.http.routers.homepage.entrypoints=web"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
       # - "traefik.http.routers.homepage.middlewares=homepage-stripprefix"
