@@ -15,7 +15,7 @@ if "%COMMAND%" == "--help" (
     set COMMAND=up
     for /d %%i in (*) do (
         cd %%i
-        docker compose up -d
+        docker-compose up -d
         cd ..
     )
 ) else if "%COMMAND%" == "up" (
@@ -25,14 +25,14 @@ if "%COMMAND%" == "--help" (
             set "choice=Y"
         ) else (
             cd %%i
-            docker compose up -d
+            docker-compose up -d
             cd ..
         )
     )
 ) else if "%COMMAND%" == "down" (
     for /d %%i in (*) do (
         cd %%i
-        docker compose down
+        docker-compose down
         cd ..
     )
 ) else if "%COMMAND%" == "start" (
@@ -41,7 +41,7 @@ if "%COMMAND%" == "--help" (
     ) else (
         if exist "%SERVICE%" (
             cd "%SERVICE%"
-            docker compose up -d
+            docker-compose up -d
             cd ..
         ) else (
             echo "Error: Service '%SERVICE%' does not exist."
@@ -53,7 +53,7 @@ if "%COMMAND%" == "--help" (
     ) else (
         if exist "%SERVICE%" (
             cd "%SERVICE%"
-            docker compose down
+            docker-compose down
             cd ..
         ) else (
             echo "Error: Service '%SERVICE%' does not exist."
