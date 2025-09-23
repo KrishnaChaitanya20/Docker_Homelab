@@ -1,6 +1,11 @@
 */.env
-homepage/config/logs
-jellyfin/config
-jellyfin/cache
-jellyfin/movies
-pihole/conf
+# Config directories - keep local but don't track in git
+*/config/
+*/conf/
+*/cache/
+*/work/
+*/data/
+*/movies/
+# Specific log directories
+*/logs/
+*/log/
