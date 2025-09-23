@@ -1,6 +1,6 @@
-networks:
-  homelab:
-    external: true
+# networks:
+#   homelab:
+#     external: true
 
 services:
   pihole:
@@ -16,8 +16,10 @@ services:
       WEBPASSWORD: 'pass'
       PIHOLE_INTERFACE: "eth0"
       WEB_SERVER_LISTEN: "0.0.0.0"
-    networks:
-      - homelab
+      WEB_PORT: 8081
+    network_mode: "host"
+    # networks:
+    #   - homelab
     volumes:
       - './conf/etc-pihole:/etc/pihole'
       - './conf/etc-dnsmasq.d:/etc/dnsmasq.d'
