@@ -16,7 +16,7 @@ services:
     networks:
       - homelab
     volumes:
-      - kestra-data:/app/storage
+      - /app/storage:/app/storage
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       KESTRA_CONFIGURATION: |
