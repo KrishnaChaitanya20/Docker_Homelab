@@ -6,6 +6,10 @@ This repository contains Docker Compose files and configurations for setting up 
 
 The following services are part of the homelab setup:
 
+- **AdGuard Home**: A network-wide ad blocker and DNS privacy server.
+  - Folder: `adgaurdhome`
+  - Purpose: Blocks ads, tracking, and malicious websites at the network level while serving as a secure DNS resolver with privacy protection features.
+
 - **Cloudflare Tunnel**: Provides secure access to the homelab from the internet.
   - Folder: `cloudflare`
   - Purpose: Exposes services securely using Cloudflare's tunneling service.
@@ -25,6 +29,10 @@ The following services are part of the homelab setup:
 - **Kestra**: A workflow orchestration tool for managing data pipelines.
   - Folder: `kestra`
   - Purpose: Enables experimentation with workflows and data orchestration.
+
+- **n8n**: A powerful workflow automation platform for technical people.
+  - Folder: `n8n`
+  - Purpose: Provides workflow automation with a visual editor, connecting different services and automating tasks through an intuitive interface.
 
 - **Pi-hole**: A network-wide ad blocker and DNS server.
   - Folder: `pihole`
