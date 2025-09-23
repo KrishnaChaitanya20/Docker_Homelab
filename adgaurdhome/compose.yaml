@@ -1,0 +1,28 @@
+networks:
+  homelab:
+    external: true
+
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    hostname: adguard
+    restart: unless-stopped
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./config:/opt/adguardhome/conf
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "3000:3000/tcp"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adguard.rule=Host(`adguard.${LOCAL_DOMAIN}`) || Host(`adguard.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.adguard.entrypoints=web"
+      - "traefik.http.services.adguard.loadbalancer.server.port=80"
+    # network_mode: "host"
+  
