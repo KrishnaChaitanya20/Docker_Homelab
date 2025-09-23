@@ -1,0 +1,30 @@
+networks:
+  homelab:
+    external: true
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.${LOCAL_DOMAIN}`) || Host(`n8n.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.n8n.entrypoints=web"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+    environment:
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_HOST=n8n.${PUBLIC_DOMAIN}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - N8N_RUNNERS_ENABLED=true
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://n8n.${PUBLIC_DOMAIN}/
+    volumes:
+      - /home/node/.n8n:/home/node/.n8n
+      - ./local-files:/files
+
+volumes:
+  n8n_data:
