@@ -11,6 +11,8 @@ services:
   kestra:
     container_name: kestra
     image: kestra/kestra:latest
+    profiles:
+      - kestra
     user: "root"
     command: server standalone
     networks:

@@ -6,8 +6,10 @@ networks:
 services:
   cloudflare:
     image: cloudflare/cloudflared:latest
-    env_file: .env
     container_name: cloudflared
+    profiles:
+      - public
+    env_file: .env
     command: "tunnel --no-autoupdate run --token ${CF_TOKEN}"
     networks:
       - homelab

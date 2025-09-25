@@ -5,7 +5,11 @@ networks:
 services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    profiles: 
+      - n8n
     restart: always
+    user: "1000:1000"
     networks:
       - homelab
     labels:
@@ -23,7 +27,7 @@ services:
       - NODE_ENV=production
       - WEBHOOK_URL=https://n8n.${PUBLIC_DOMAIN}/
     volumes:
-      - /home/node/.n8n:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
       - ./local-files:/files
 
 volumes:
