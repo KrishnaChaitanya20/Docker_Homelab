@@ -1,0 +1,11 @@
+include:
+  - adgaurdhome/compose.yaml
+  - cloudflare/compose.yaml
+  - homepage/compose.yaml
+  - ittools/compose.yaml
+  - jellyfin/compose.yaml
+  - kestra/compose.yaml
+  - n8n/compose.yaml
+  - pihole/compose.yaml
+  - portainer/compose.yaml
+  - traefik/compose.yaml
