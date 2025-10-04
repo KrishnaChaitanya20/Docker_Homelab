@@ -1,0 +1,24 @@
+networks:
+  homelab:
+    external: true
+
+services:
+  homeassistant:
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    container_name: "homeassistant"
+    restart: unless-stopped
+    # privileged: true # commented as container runs in a WSL and cannot access the USB devices
+    profiles:
+      - homeautomation
+    volumes:
+      - "./config:/config"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - "TZ=${TZ:-Asia/Kolkata}"
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homeassistant.rule=Host(`home.${LOCAL_DOMAIN}`) || Host(`home.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.homeassistant.entrypoints=web"
+      - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
