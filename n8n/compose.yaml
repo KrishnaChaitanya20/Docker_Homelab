@@ -12,11 +12,6 @@ services:
     user: "1000:1000"
     networks:
       - homelab
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.n8n.rule=Host(`n8n.${LOCAL_DOMAIN}`) || Host(`n8n.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.n8n.entrypoints=web"
-      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
     environment:
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_HOST=n8n.${PUBLIC_DOMAIN}
@@ -24,11 +19,19 @@ services:
       - N8N_PROTOCOL=http
       - N8N_SECURE_COOKIE=false
       - N8N_RUNNERS_ENABLED=true
+      - N8N_METRICS=true
       - NODE_ENV=production
       - WEBHOOK_URL=https://n8n.${PUBLIC_DOMAIN}/
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.${LOCAL_DOMAIN}`) || Host(`n8n.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.n8n.entrypoints=web"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+      - "prometheus.scrape=true"
+      - "prometheus.scrape.port=5678"
 
 volumes:
   n8n_data:
