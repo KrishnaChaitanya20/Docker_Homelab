@@ -8,4 +8,8 @@ include:
   - n8n/compose.yaml
   - pihole/compose.yaml
   - portainer/compose.yaml
+  - semaphore/compose.yaml
   - traefik/compose.yaml
+  - grafana/compose.yaml
+  - prometheus/compose.yaml
+  - homeassistant/compose.yaml
