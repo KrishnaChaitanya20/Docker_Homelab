@@ -1,5 +1,6 @@
 **/.env
 # Config directories - keep local but don't track in git
+**/certs/
 **/config/
 **/conf/
 **/cache/
