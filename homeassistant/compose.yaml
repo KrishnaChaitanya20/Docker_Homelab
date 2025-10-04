@@ -10,6 +10,7 @@ services:
     # privileged: true # commented as container runs in a WSL and cannot access the USB devices
     profiles:
       - homeautomation
+      - all
     volumes:
       - "./config:/config"
       - "/etc/localtime:/etc/localtime:ro"

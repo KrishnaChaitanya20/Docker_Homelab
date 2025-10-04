@@ -6,6 +6,7 @@ services:
     user: "root"
     profiles:
       - semaphore
+      - all
     networks:
       - homelab
     env_file:

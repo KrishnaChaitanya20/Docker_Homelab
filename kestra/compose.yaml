@@ -13,6 +13,7 @@ services:
     image: kestra/kestra:latest
     profiles:
       - kestra
+      - all
     user: "root"
     command: server standalone
     networks:

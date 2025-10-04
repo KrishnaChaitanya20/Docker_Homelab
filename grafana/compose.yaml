@@ -10,6 +10,7 @@ services:
     profiles:
       - grafana
       - monitoring
+      - all
     networks:
       - homelab
     labels:

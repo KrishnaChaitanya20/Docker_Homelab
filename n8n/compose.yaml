@@ -8,6 +8,7 @@ services:
     container_name: n8n
     profiles: 
       - n8n
+      - all
     restart: always
     user: "1000:1000"
     networks:
@@ -21,7 +22,7 @@ services:
       - N8N_RUNNERS_ENABLED=true
       - N8N_METRICS=true
       - NODE_ENV=production
-      - WEBHOOK_URL=https://n8n.${PUBLIC_DOMAIN}/
+      - WEBHOOK_URL=http://n8n.${LOCAL_DOMAIN}/
     volumes:
       - n8n_data:/home/node/.n8n
       - ./local-files:/files

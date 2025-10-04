@@ -11,6 +11,7 @@ services:
     profiles:
       - prometheus
       - monitoring
+      - all
     volumes:
       - ./data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
