@@ -1,11 +1,15 @@
-*/.env
+**/.env
 # Config directories - keep local but don't track in git
-*/config/
-*/conf/
-*/cache/
-*/work/
-*/data/
-*/movies/
+**/config/
+**/conf/
+**/cache/
+**/work/
+**/data/
+**/movies/
+**/local-files/
+**/playbooks/
+**/ssh/
+**/tmp/
 # Specific log directories
-*/logs/
-*/log/
+**/logs/
+**/log/
