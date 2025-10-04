@@ -1,0 +1,27 @@
+services:
+  semaphore:
+    image: semaphoreui/semaphore:latest
+    container_name: semaphore
+    restart: unless-stopped
+    user: "root"
+    profiles:
+      - semaphore
+    networks:
+      - homelab
+    env_file:
+      - .env
+    environment:
+        SEMAPHORE_DB_DIALECT: sqlite
+        SEMAPHORE_ADMIN: "${SEMAPHORE_ADMIN}"
+        SEMAPHORE_ADMIN_PASSWORD: "${SEMAPHORE_ADMIN_PASSWORD}"
+        SEMAPHORE_ADMIN_NAME: "${SEMAPHORE_ADMIN_NAME}"
+        SEMAPHORE_ADMIN_EMAIL: "${SEMAPHORE_ADMIN_EMAIL}"
+    volumes:
+        - ./data:/var/lib/semaphore
+        - ./config:/etc/semaphore
+        - ./tmp:/tmp/semaphore
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.semaphore.rule=Host(`semaphore.${LOCAL_DOMAIN}`) || Host(`semaphore.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.semaphore.entrypoints=web"
+      - "traefik.http.services.semaphore.loadbalancer.server.port=3000"
