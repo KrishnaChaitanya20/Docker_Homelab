@@ -1,0 +1,25 @@
+networks:
+  homelab:
+    external: true
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    user: "root" # required to access the docker socket
+    restart: unless-stopped
+    profiles:
+      - prometheus
+      - monitoring
+    volumes:
+      - ./data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - homelab
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.${LOCAL_DOMAIN}`) || Host(`prometheus.${PUBLIC_DOMAIN}`)"
+      - "traefik.http.routers.prometheus.entrypoints=web"
+      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+    
