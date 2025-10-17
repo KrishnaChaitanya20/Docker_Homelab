@@ -7,27 +7,54 @@ services:
   traefik:
     image: "traefik:v3.3"
     container_name: "traefik"
+    restart: unless-stopped
     command:
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
+      # EntryPoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.http.tls=true"
+
+      # TLS Configuration - comment if you are not using TLS certificates
+      - "--providers.file.filename=/dynamic/tls.yaml"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+
+      # Providers
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entryPoints.web.address=:80"
-      - "--entryPoints.websecure.address=:443"
+      - "--providers.docker.network=homelab"
+
+      # API & Dashboard
+      - "--api.dashboard=true"
+      - "--api.insecure=false" # Change to `true` to enable access without TLS
+
+      # Observability
+      - "--log.level=DEBUG"
+      - "--accesslog=true"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.addEntryPointsLabels=true"
       - "--metrics.prometheus.addServicesLabels=true"
+
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # comment if you are not using TLS certificates
+      - "./certs:/certs:ro"
+      - ./dynamic:/dynamic:ro
+
     networks:
       - homelab
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.${LOCAL_DOMAIN}`) || Host(`traefik.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.traefik.entrypoints=web"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
-      - "prometheus.scrape=true"
-      - "prometheus.scrape.port=8080"
+    - "traefik.enable=true"
+    - "traefik.http.routers.traefik.rule=Host(`traefik.${LOCAL_DOMAIN}`) || Host(`traefik.${PUBLIC_DOMAIN}`)"
+    - "traefik.http.routers.traefik.entrypoints=web,websecure"
+    - "traefik.http.routers.traefik.tls=true" # Comment if you are not using TLS certificates
+    - "traefik.http.routers.traefik.service=api@internal"
+    - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+    # Custom labels for Prometheus metrics
+    - "prometheus.scrape=true"
+    - "prometheus.scrape.port=8080"
