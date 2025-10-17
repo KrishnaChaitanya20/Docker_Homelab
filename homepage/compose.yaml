@@ -18,7 +18,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homepage.rule=Host(`dash.${LOCAL_DOMAIN}`) || Host(`dash.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.homepage.entrypoints=web"
+      - "traefik.http.routers.homepage.entrypoints=websecure"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
       # - "traefik.http.routers.homepage.middlewares=homepage-stripprefix"
       # - "traefik.http.middlewares.homepage-stripprefix.stripprefix.prefixes=/homepage"

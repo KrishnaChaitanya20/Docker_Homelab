@@ -17,13 +17,13 @@ services:
       # Frontend
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`portainer.${LOCAL_DOMAIN}`) || Host(`portainer.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.services.frontend.loadbalancer.server.port=9000"
       - "traefik.http.routers.frontend.service=frontend"
       
       # Edge
       - "traefik.http.routers.edge.rule=Host(`edge.${LOCAL_DOMAIN}`) || Host(`edge.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.edge.entrypoints=web"
+      - "traefik.http.routers.edge.entrypoints=websecure"
       - "traefik.http.services.edge.loadbalancer.server.port=8000"
       - "traefik.http.routers.edge.service=edge"
 

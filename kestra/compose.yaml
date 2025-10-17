@@ -61,7 +61,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.kestra.rule=Host(`kestra.${LOCAL_DOMAIN}`) || Host(`kestra.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.kestra.entrypoints=web"
+      - "traefik.http.routers.kestra.entrypoints=websecure"
       - "traefik.http.services.kestra.loadbalancer.server.port=8080"
 
 
