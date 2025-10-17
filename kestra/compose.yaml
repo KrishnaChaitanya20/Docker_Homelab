@@ -31,6 +31,12 @@ services:
             driverClassName: org.h2.Driver
 
         kestra:
+          # Uncomment to enable AI features
+          # ai:
+          #   type: "gemini"
+          #   gemini:
+          #     api-key: "${GEMINI_API_KEY}"
+          #     model-name: gemini-2.5-flash
           tutorialFlows:
             enabled: false
           server:
