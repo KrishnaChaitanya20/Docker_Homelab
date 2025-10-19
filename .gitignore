@@ -14,5 +14,3 @@
 # Specific log directories
 **/logs/
 **/log/
-# Future Notes/Troubleshooting steps
-**/notes.*
