@@ -32,11 +32,11 @@ This is Docker Homelab setup made to learn and experiment with various self-host
    ```bash
    docker compose up -d <service-name> [<service-name> ...]
    ```
-  or to start all services:
-   ```bash
-   docker compose --profile all up -d
-   ```
-  > Check each service's compose file for specific profiles if needed.
+    or to start all services:
+    ```bash
+    docker compose --profile all up -d
+    ```
+    > Check each service's compose file for specific profiles if needed.
 
 # Contributing
 Feel free to fork this repository and submit pull requests with improvements or additional services.
