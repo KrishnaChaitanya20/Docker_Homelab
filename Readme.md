@@ -1,115 +1,42 @@
-# Homelab Setup
+# About this Project
+This is Docker Homelab setup made to learn and experiment with various self-hosted services using Docker containers. All completely managed through Docker Compose for easy deployment and management.
 
-This repository contains Docker Compose files and configurations for setting up a homelab environment. The setup is modular, allowing you to manage and deploy services independently.
+> This project is made for personal learning and experimentation purposes and may not be using all best practices for production environments.
 
-## Services
+![Service Architecture](./Homelab.drawio.svg)
+# Services
+- **Cloudflare Tunnel**: Securely expose your local services to the internet without opening ports.
+- **Grafana**: Monitor and visualize metrics from various data sources.
+  - "Grafana MCP": An MCP(Model Context Protocol) server/service for Grafana.
+- **Home Assistant**: Open-source home automation platform to control smart devices.
+- **Homepage(Dashboard)**: A customizable dashboard to access all your services in one place.
+- **It-tools**: A collection of network and system administration tools.
+- **Jellyfin**: A media server for streaming your personal media collection.
+- **Kestra**: A workflow orchestration and scheduling platform.
+- **N8N**: A workflow automation tool to connect various services and automate tasks.
+- **Portainer**: A web-based Docker management tool.
+- **Prometheus**: A monitoring and alerting toolkit.
+- **Semaphore**: A  Web-based tool for managing and running Ansible,Terraform and other scripts.
+- **Traefik**: A reverse proxy and load balancer for managing access to your services.
 
-The following services are part of the homelab setup:
-
-- **AdGuard Home**: A network-wide ad blocker and DNS privacy server.
-  - Folder: `adgaurdhome`
-  - Purpose: Blocks ads, tracking, and malicious websites at the network level while serving as a secure DNS resolver with privacy protection features.
-
-- **Cloudflare Tunnel**: Provides secure access to the homelab from the internet.
-  - Folder: `cloudflare`
-  - Purpose: Exposes services securely using Cloudflare's tunneling service.
-
-- **Homepage**: A customizable dashboard for accessing and managing homelab services.
-  - Folder: `homepage`
-  - Purpose: Displays links to services and provides a search bar for convenience.
-
-- **Jellyfin**: A media server for streaming personal media.
-  - Folder: `jellyfin`
-  - Purpose: Organizes and streams movies, TV shows, and other media.
-
-- **IT-Tools**: A collection of useful online tools for developers and IT professionals.
-  - Folder: `ittools`
-  - Purpose: Provides a web interface with various utilities such as encoders, decoders, format converters, and more.
-
-- **Kestra**: A workflow orchestration tool for managing data pipelines.
-  - Folder: `kestra`
-  - Purpose: Enables experimentation with workflows and data orchestration.
-
-- **n8n**: A powerful workflow automation platform for technical people.
-  - Folder: `n8n`
-  - Purpose: Provides workflow automation with a visual editor, connecting different services and automating tasks through an intuitive interface.
-
-- **Pi-hole**: A network-wide ad blocker and DNS server.
-  - Folder: `pihole`
-  - Purpose: Blocks ads and tracking at the network level while serving as a local DNS resolver.
-
-- **Portainer**: A web-based interface for managing Docker containers and stacks.
-  - Folder: `portainer`
-  - Purpose: Simplifies Docker management with an intuitive UI.
-
-- **Traefik**: A reverse proxy and load balancer for routing traffic to services.
-  - Folder: `traefik`
-  - Purpose: Routes and secures traffic to homelab services.
-
-## Features
-
-- **Modular Setup**: Each service is defined in its own folder with a dedicated `docker-compose.yaml` file.
-- **Customizable**: Easily add or remove services based on your needs.
-- **Secure Access**: Uses Cloudflare Tunnel and Traefik for secure and efficient routing.
-
-## Prerequisites
-
-1. **Docker and Docker Compose**:
-   Ensure Docker and Docker Compose are installed. Verify installation with:
+# How to Run
+1. Clone this repository to your local machine.
    ```bash
-   docker --version
-   docker-compose --version
-   ```
-
-2. **Docker Network**:
-   Create a Docker network named `homelab`:
+   git clone <repository-url>
+    cd <repository-directory>
+    ```
+2. Make sure you have Docker and Docker Compose installed on your machine.
+3. Check readme files in each service directory for any specific configuration or environment variables that need to be set.
+4. Customize the `compose.yaml` file as needed to configure your services.
+5. Start the services using Docker Compose.
    ```bash
-   docker network create homelab
+   docker compose up -d <service-name> [<service-name> ...]
    ```
+  or to start all services:
+   ```bash
+   docker compose --profile all up -d
+   ```
+  > Check each service's compose file for specific profiles if needed.
 
-3. **Environment Variables**:
-   - Define `LOCAL_DOMAIN` and `PUBLIC_DOMAIN` in a `.env` file or as system variables.
-   - Example `.env` file:
-     ```bash
-     LOCAL_DOMAIN=localdomain.com
-     PUBLIC_DOMAIN=publicdomain.com
-     ```
-
-4. **DNS Configuration**:
-   - Add DNS records in Pi-hole for each service in the format `service.${LOCAL_DOMAIN}`.
-   - Ensure `PUBLIC_DOMAIN` is properly configured in Cloudflare.
-
-## Usage
-
-### Starting and Managing Services with `homelab.bat`
-
-The `homelab.bat` script simplifies managing the homelab services. It accepts the following arguments:
-
-1. **`all`**: Starts all services defined in the Docker Compose files.
-    ```bash
-    homelab.bat all
-    ```
-
-2. **`up`**: Prompts the user (`Y/n`) before starting each service individually.
-    ```bash
-    homelab.bat up
-    ```
-
-3. **`down`**: Stops all running services.
-    ```bash
-    homelab.bat down
-    ```
-
-### Accessing Services
-Each service is accessible via:
-- `http://service.${LOCAL_DOMAIN}`
-- `http://service.${PUBLIC_DOMAIN}`
-
-Refer to the `Readme.md` file in each service folder for specific details.
-
-> ### Notes
-
-- This setup is for personal use and experimentation. It may not follow production-grade best practices.
-- Contributions and suggestions are welcome to improve the setup.
-
----
+# Contributing
+Feel free to fork this repository and submit pull requests with improvements or additional services.
