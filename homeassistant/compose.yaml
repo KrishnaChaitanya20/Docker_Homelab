@@ -21,5 +21,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.homeassistant.rule=Host(`home.${LOCAL_DOMAIN}`) || Host(`home.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.homeassistant.entrypoints=websecure"
+      - "traefik.http.routers.homeassistant.entrypoints=web"
       - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"

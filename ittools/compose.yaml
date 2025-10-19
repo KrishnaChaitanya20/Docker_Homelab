@@ -12,5 +12,5 @@ services:
         labels:
             traefik.enable: "true"
             traefik.http.routers.it-tools.rule: "Host(`ittools.${LOCAL_DOMAIN}`) || Host(`ittools.${PUBLIC_DOMAIN}`)"
-            traefik.http.routers.it-tools.entrypoints: "websecure"
+            traefik.http.routers.it-tools.entrypoints: "web"
             traefik.http.services.it-tools.loadbalancer.server.port: "80"

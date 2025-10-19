@@ -17,7 +17,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.grafana.rule=Host(`grafana.${LOCAL_DOMAIN}`) || Host(`grafana.${PUBLIC_DOMAIN}`)"
-      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.entrypoints=web"
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
     volumes:
       - ./data:/var/lib/grafana
