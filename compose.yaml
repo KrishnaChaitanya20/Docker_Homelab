@@ -1,12 +1,12 @@
 include:
-  - adgaurdhome/compose.yaml
+  # - adgaurdhome/compose.yaml # Disabled due to port conflict between WSL2 and Windows (port 53)
   - cloudflare/compose.yaml
   - homepage/compose.yaml
   - ittools/compose.yaml
   - jellyfin/compose.yaml
   - kestra/compose.yaml
   - n8n/compose.yaml
-  - pihole/compose.yaml
+  # - pihole/compose.yaml # Disabled due to port conflict between WSL2 and Windows (port 53)
   - portainer/compose.yaml
   - semaphore/compose.yaml
   - traefik/compose.yaml
