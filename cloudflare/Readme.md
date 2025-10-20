@@ -1,17 +1,18 @@
-# Cloudflare Configuration
-
-This folder contains configuration files and documentation for managing Cloudflare settings in a homelab environment.
-
-## Purpose
-
-This folder is used to store and version control Cloudflare-related configurations, compose files, and documentation for managing DNS, security, and other Cloudflare services in a homelab environment.
-
-## Usage
-
 ### Prerequisites
-- Access to a Cloudflare account and API keys.
-- copy .env.example to .env and fill in the values.
-- A Docker network named `homelab` created (or update the network name in the compose file).
+- Create a Cloudflare account (If you don't have one).
+- In ZeroTrust Dashboard, Create a Tunnel and download the credentials file.
+- In the tunnel routing setting, add the protocol as `HTTP` and the destination address as `traefik`.
+- Under DNS settings, create a CNAME record for your desired wildcard subdomain pointing to the tunnel created.
+- A Docker network named `homelab` created.
+
+- Rename `.env.example` to `.env` and replace the placeholder values with your Cloudflare credentials and any other required variables:
+
+    ```bash
+    cp .env.example .env
+    # then edit .env to set values like:
+    # CF_API_TOKEN=your_token_here
+    ```
+
 
 ### Steps
 1. Navigate to the `cloudflare` folder:
@@ -22,4 +23,10 @@ This folder is used to store and version control Cloudflare-related configuratio
 3. Deploy the services using Docker Compose:
     ```bash
     docker compose up -d
+    ```
+    or, in the root folder:
+    ```bash
+    docker compose --profile public up -d
+    or
+    docker compose up -d cloudflare
     ```
