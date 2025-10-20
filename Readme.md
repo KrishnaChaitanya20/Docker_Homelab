@@ -19,16 +19,24 @@ This is Docker Homelab setup made to learn and experiment with various self-host
 - **Semaphore**: A  Web-based tool for managing and running Ansible,Terraform and other scripts.
 - **Traefik**: A reverse proxy and load balancer for managing access to your services.
 
+# Prerequisites
+- Access to a Docker environment with Docker Compose installed.
+- Create a Docker network named `homelab`.
+- Set LOCAL_DOMAIN and PUBLIC_DOMAIN environment variables in a `.env` file at the root of the project.
+  - Example `.env` content:
+    ```bash
+    LOCAL_DOMAIN=local.example.com  # Can be any domain you use for local access
+    PUBLIC_DOMAIN=public.example.com # Your public domain for external access (Optional)
+    ```
 # How to Run
 1. Clone this repository to your local machine.
    ```bash
    git clone <repository-url>
     cd <repository-directory>
     ```
-2. Make sure you have Docker and Docker Compose installed on your machine.
-3. Check readme files in each service directory for any specific configuration or environment variables that need to be set.
-4. Customize the `compose.yaml` file as needed to configure your services.
-5. Start the services using Docker Compose.
+2. Check readme files in each service directory for any specific configuration or environment variables that need to be set.
+3. Customize the `compose.yaml` file as needed to configure your services.
+4. Start the services using Docker Compose.
    ```bash
    docker compose up -d <service-name> [<service-name> ...]
    ```
