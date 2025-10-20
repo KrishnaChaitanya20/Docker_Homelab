@@ -3,38 +3,58 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: "docker-containers"
-    docker_sd_configs:
-      - host: "unix:///var/run/docker.sock"
-        refresh_interval: 30s
+  - job_name: "traefik"
+    static_configs:
+      - targets: ["traefik:8080"]
+        labels:
+          container: "traefik"
 
-    relabel_configs:
-      # Only scrape containers with prometheus.scrape=true
-      - source_labels: [__meta_docker_container_label_prometheus_scrape]
-        regex: "true"
-        action: keep
+  - job_name: "n8n"
+    static_configs:
+      - targets: ["n8n:5678"]
+        labels:
+          container: "n8n"
 
-      # Set target address = container_ip:prometheus.scrape.port
-      - source_labels: [__meta_docker_container_network_ip, __meta_docker_container_label_prometheus_scrape_port]
-        regex: "(.+);(.+)"
-        replacement: "$1:$2"
-        target_label: __address__
+  - job_name: "kestra"
+    metrics_path: "/prometheus"
+    static_configs:
+      - targets: ["kestra:8081"]
+        labels:
+          container: "kestra"
 
-      # If prometheus.scrape.path is set, use it; otherwise default to /metrics
-      - source_labels: [__meta_docker_container_label_prometheus_scrape_path]
-        regex: "(.+)"
-        target_label: __metrics_path__
-        action: replace
-      - source_labels: [__meta_docker_container_label_prometheus_scrape_path]
-        regex: ""
-        replacement: "/metrics"
-        target_label: __metrics_path__
 
-      # Add container/job labels
-      - source_labels: [__meta_docker_container_name]
-        regex: "/(.*)"
-        target_label: container
-      - source_labels: [__meta_docker_container_label_com_docker_compose_service]
-        target_label: service
-      - source_labels: [__meta_docker_container_label_com_docker_compose_project]
-        target_label: project
+# Dynamic Docker service discovery configuration
+    # docker_sd_configs:
+    #   - host: "unix:///var/run/docker.sock"
+    #     refresh_interval: 30s
+
+    # relabel_configs:
+    #   # Only scrape containers with prometheus.scrape=true
+    #   - source_labels: [__meta_docker_container_label_prometheus_scrape]
+    #     regex: "true"
+    #     action: keep
+
+    #   # Set target address = container_ip:prometheus.scrape.port
+    #   - source_labels: [__meta_docker_container_network_ip, __meta_docker_container_label_prometheus_scrape_port]
+    #     regex: "(.+);(.+)"
+    #     replacement: "$1:$2"
+    #     target_label: __address__
+
+    #   # If prometheus.scrape.path is set, use it; otherwise default to /metrics
+    #   - source_labels: [__meta_docker_container_label_prometheus_scrape_path]
+    #     regex: "(.+)"
+    #     target_label: __metrics_path__
+    #     action: replace
+    #   - source_labels: [__meta_docker_container_label_prometheus_scrape_path]
+    #     regex: ""
+    #     replacement: "/metrics"
+    #     target_label: __metrics_path__
+
+    #   # Add container/job labels
+    #   - source_labels: [__meta_docker_container_name]
+    #     regex: "/(.*)"
+    #     target_label: container
+    #   - source_labels: [__meta_docker_container_label_com_docker_compose_service]
+    #     target_label: service
+    #   - source_labels: [__meta_docker_container_label_com_docker_compose_project]
+    #     target_label: project
