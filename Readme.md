@@ -3,7 +3,7 @@ This is Docker Homelab setup made to learn and experiment with various self-host
 
 > This project is made for personal learning and experimentation purposes and may not be using all best practices for production environments.
 
-![Service Architecture](./Homelab.drawio.svg)
+![Service Architecture](./Homelab.png)
 # Services
 - **Cloudflare Tunnel**: Securely expose your local services to the internet without opening ports.
 - **Grafana**: Monitor and visualize metrics from various data sources.
