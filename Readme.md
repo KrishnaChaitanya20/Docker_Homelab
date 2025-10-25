@@ -31,8 +31,8 @@ This is Docker Homelab setup made to learn and experiment with various self-host
 # How to Run
 1. Clone this repository to your local machine.
    ```bash
-   git clone <repository-url>
-    cd <repository-directory>
+   git clone https://github.com/KrishnaChaitanya20/Docker_Homelab.git
+    cd Docker_Homelab
     ```
 2. Check readme files in each service directory for any specific configuration or environment variables that need to be set.
 3. Customize the `compose.yaml` file as needed to configure your services.
