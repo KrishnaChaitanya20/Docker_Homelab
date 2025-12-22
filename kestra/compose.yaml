@@ -19,7 +19,7 @@ services:
     networks:
       - homelab
     volumes:
-      - /app/storage:/app/storage
+      - ./app/storage:/app/storage
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       KESTRA_CONFIGURATION: |
@@ -42,8 +42,6 @@ services:
           server:
             basicAuth:
               enabled: false
-              username: "admin@kestra.io"
-              password: kestra
           storage:
             type: local
             local:
