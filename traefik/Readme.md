@@ -17,4 +17,8 @@
     - `http://traefik.${PUBLIC_DOMAIN}`
 
 4. (Optional) If you want to use HTTPs for local domain, create a certs folder in the traefik directory and add your certificates there and uncomment the relevant lines in the `compose.yaml` file.
-    > Generate self-signed certificates for local domain using openssl with names local.crt and local.key and place them in certs folder.
+    > Generate self-signed certificates for local domain using `openssl` with names local.crt and local.key and place them in certs folder.
+
+### Troubleshooting
+- If you cant see the routes in the dashboard even after services have required labels, check the docker engine version and also the check the traefik logs if current docker client inside the traefik container is compatible with the docker engine version.
+If not, you might need to update the traefik image to a newer version or the version compatible with your docker engine.
